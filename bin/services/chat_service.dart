@@ -5,6 +5,7 @@ import '../models/message.dart';
 class ChatService {
   // Alle Clients sind
   final List<WebSocket> _clients = [];
+  final List<String> messages = [];
 
   // Client hinzufügen
   void addClient(WebSocket ws) {
@@ -21,18 +22,24 @@ class ChatService {
   // Nachricht an alle "verschicken"
   void broadcast(Message message) {
     final jsonString = jsonEncode(message.toJson());
+    print('DEBUG: message $jsonString encoded');
     for (final client in _clients) {
       client.add(jsonString);
     }
+    messages.add(message.content);
+    print('DEBUG: message $jsonString sent');
   }
 
   // Bearbeitung einer Nachricht vom CLient
   Future<void> handleMessage(WebSocket sender, String data) async {
+    print('DEBUG: handleMessage получил: $data');
     try {
       final json = jsonDecode(data) as Map<String, dynamic>;
+
       final message = Message.fromJson(json);
-      broadcast(message);
       print('Message from ${message.sender}: ${message.content}');
+
+      broadcast(message);
     } catch (e) {
       print('Error: $e');
     }

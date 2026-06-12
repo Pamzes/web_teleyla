@@ -48,6 +48,7 @@ void main() async {
           webSocket.listen(
             (data) {
               if (data is String) {
+                print("DEBUG: message recieved");
                 chatService.handleMessage(webSocket, data);
               }
             },

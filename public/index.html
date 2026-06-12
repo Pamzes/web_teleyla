@@ -22,51 +22,7 @@
     <input id="input" placeholder="Please enter your message" autocomplete="off" />
     <button id="sendBtn">Send</button>
   
-    <script>
-
-        const statusEl = document.getElementById('wsStatus');
-function logStatus(msg) {
-    statusEl.textContent += msg + '\n';
-    console.log(msg);
-}
-
-const serverHost = window.location.hostname;
-const serverPort = window.location.port || '3000';
-const wsUrl = `ws://${serverHost}:${serverPort}/ws`;
-logStatus('Пытаюсь подключиться к ' + wsUrl);
-
-const ws = new WebSocket(wsUrl);
-ws.onopen = () => logStatus('WebSocket открыт');
-ws.onclose = (event) => logStatus('WebSocket закрыт (код: ' + event.code + ')');
-ws.onerror = () => logStatus('WebSocket ошибка');
-
-ws.onmessage = (event) => {
-
-const ws = new WebSocket('ws://localhost:3000/ws');
-const sendBtn = document.getElementById('sendBtn');
-const input = document.getElementById('input');
-
-function sendMessage() {
-  const text = input.value.trim();
-  if (text) {
-    const message = {
-    chatID: 12,
-    messageID: 1,
-    sender: 1,   // или подставь реальное имя пользователя
-    recipient : 2, 
-    status: 1,
-    content: text,
-    timestamp: new Date().toISOString()
-    };
-    ws.send(JSON.stringify(message));   // <-- вот вызов, который инициирует цепочку
-    input.value = '';
-  }
-}
-}
-
-sendBtn.addEventListener('click', sendMessage);
-        
-     </script>
+    <script defer src = 'script.js'></script>
 
 
   <output></output>
