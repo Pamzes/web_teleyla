@@ -41,14 +41,14 @@ void main() async {
       if (httpRequest.headers.value('upgrade') == 'websocket') {
         try {
           final webSocket = await WebSocketTransformer.upgrade(httpRequest);
-          print('DEBUG: WebSocket апгрейд выполнен');
+          //print('DEBUG: WebSocket upgrade successful');
           //einfügen von neuem Client in die Liste mit aktiven Clients in chat_service
           chatService.addClient(webSocket);
           //nachrichten von neuem CLient werden erwartet
           webSocket.listen(
             (data) {
               if (data is String) {
-                print("DEBUG: message recieved");
+                //print("DEBUG: message recieved");
                 chatService.handleMessage(webSocket, data);
               }
             },
@@ -77,5 +77,3 @@ void main() async {
     }
   }
 }
-
-//идея!! уведомления через браузер
