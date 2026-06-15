@@ -19,20 +19,20 @@ class ChatService {
     print('Client disconnected. ${_clients.length} clients connected');
   }
 
-  // Nachricht an alle "verschicken"
+  // Nachricht kodieren und an alle "verschicken"
   void broadcast(Message message) {
     final jsonString = jsonEncode(message.toJson());
-    print('DEBUG: message $jsonString encoded');
+    //print('DEBUG: message $jsonString encoded');
     for (final client in _clients) {
       client.add(jsonString);
     }
     messages.add(message.content);
-    print('DEBUG: message $jsonString sent');
+    //print('DEBUG: message $jsonString sent');
   }
 
   // Bearbeitung einer Nachricht vom CLient
   Future<void> handleMessage(WebSocket sender, String data) async {
-    print('DEBUG: handleMessage получил: $data');
+    //print('DEBUG: handleMessage recieved: $data');
     try {
       final json = jsonDecode(data) as Map<String, dynamic>;
 
