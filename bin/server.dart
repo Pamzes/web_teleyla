@@ -4,12 +4,39 @@ import 'package:shelf/shelf_io.dart' as shelf_io;
 import 'package:shelf_router/shelf_router.dart';
 import 'package:shelf_static/shelf_static.dart';
 import '../bin/services/chat_service.dart';
+import 'package:postgres/postgres.dart';
+import 'db/repository/users_repository.dart';
+import 'db/repository/messages_repository.dart';
 
 //die meisten funktionen kommen aus oben importierten packages, was serverprogramm sehr vereinfacht
 //code wurde mithilfe von anleitungen aus packages und KI geschrieben
 //server starten
 void main() async {
-  final chatService = ChatService();
+  final settings = ConnectionSettings(sslMode: SslMode.disable);
+
+  final connection = await Connection.open(
+    Endpoint(
+      host: 'localhost',
+      port: 5432,
+      database: 'db_teleyla',
+      username: 'postgres',
+      password: '12345678',
+    ),
+    settings: settings,
+  );
+
+  try {
+    // Open the connection
+    await connection.execute('SELECT * FROM users');
+    print('Connected to PostgreSQL successfully!');
+  } catch (e) {
+    print('Failed to connect to PostgreSQL: $e');
+  }
+
+  final userRepo = UserRepository(connection);
+  final messageRepo = MessageRepository(connection);
+
+  final chatService = ChatService(messageRepo);
 
   // Bearbeitet static, also html
   final staticHandler = createStaticHandler(

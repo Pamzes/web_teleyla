@@ -1,11 +1,16 @@
 import 'dart:io';
 import 'dart:convert';
 import '../models/message.dart';
+import '../db/repository/messages_repository.dart';
 
 class ChatService {
   // Alle Clients sind
   final List<WebSocket> _clients = [];
   final List<String> messages = [];
+
+  final MessageRepository _messageRepo;
+
+  ChatService(this._messageRepo);
 
   // Client hinzufügen
   void addClient(WebSocket ws) {
@@ -38,7 +43,7 @@ class ChatService {
 
       final message = Message.fromJson(json);
       print('Message from ${message.sender}: ${message.content}');
-
+      _messageRepo.save(message);
       broadcast(message);
     } catch (e) {
       print('Error: $e');
