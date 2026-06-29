@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <title>Teleyla</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+  <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 1px; padding: 1px; }
+    body {
+      font-family: sans-serif;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
+    .app {
+      display: flex;
+      width: 150vh;
+      height: 100vh;
+      background: #ffffff;
+    }
+    .sidebar {
+      width: 35vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar-header {
+      padding: 16px 14px 12px;
+      border-bottom: 0.5px solid #ddd;
+    }
+
+    .sidebar-header h1 {
+      font-size: 3vh;
+      color: #000000;
+    }
+    .search-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #d3d3d3;
+    }
+    .contact {
+      padding: 10px 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .contact.active {
+      background: #f4f4f4;
+      border-left: 2px solid #534AB7;
+    }
+    .avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 500;
+      flex-shrink: 0;
+    }
+    .avatar-1 { background: #EEEDFE; color: #000000; }
+    .avatar-2 { background: #E1F5EE; color: #000000; }
+    .avatar-3 { background: #FAECE7; color: #000000; }
+    .avatar-4 { background: #E6F1FB; color: #000000; }
+
+    .contact-name { font-size: 13px; font-weight: 500; color: #111; }
+    .contact-time { font-size: 11px; color: #aaa; margin-left: auto; flex-shrink: 0; }
+    /* Chat */
+    .chat {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .chat-header {
+      padding: 12px 16px;
+      border-bottom: 0.5px solid #ddd;
+      display: flex;
+    }
+    .chat-header-info .name { font-size: 14px; font-weight: 500; color: #111; }
+    .chat-header-info .status { font-size: 12px; color: #1D9E75; }
+    .chat-header-actions {
+      margin-left: auto;
+      display: flex;
+      gap: 14px;
+    }
+    .chat-body {
+      flex: 1;
+      background: #f4f4f4;
+    }
+    .chat-input-bar {
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+    }
+    .chat-input-bar input {
+      flex: 1;
+      font-size: 13px;
+      border: 1px solid #ddd;
+      border-radius: 10vh;
+      padding: 8px 12px;
+      background: #ffffff;
+      color: #111;
+    }
+    .send-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 100%;
+      background: #534AB7;
+      border: 1px solid #000000;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .send-btn i { font-size: 16px; color: #fff; }
+  </style>
+</head>
+<body>
+<div class="app">
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <h1>Nachrichten</h1>
+      <div class="search-bar">
+        <i class="ti ti-search"></i>
+        <span>Suchen</span>
+      </div>
+    </div>
+    <div class="contact-list">
+      <div class="contact active">
+        <div class="avatar avatar-1">PB</div>
+        <span class="contact-name">Name</span>
+        <span class="contact-time">Zeit</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="chat">
+    <div class="chat-header">
+      <div class="avatar avatar-1">PB</div>
+      <div class="chat-header-info">
+        <p class="name">Name</p>
+        <p class="status">Online</p>
+      </div>
+      <div class="chat-header-actions">
+        <i class="ti ti-dots"></i>
+      </div>
+    </div>
+
+    <div class="chat-body"></div>
+    <ul id="messages"></ul>
+
+    <div class="chat-input-bar">
+      <input type="text" placeholder="Nachricht schreiben…" />
+      <button class="send-btn">
+        <i class="ti ti-send"></i>
+      </button>
+    </div>
+  </div>
+
+</div>
+
+<scriptdefer src = 'script_ui.js'></script>
+
+</body>
+</html>
+
