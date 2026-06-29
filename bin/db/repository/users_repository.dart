@@ -31,7 +31,7 @@ class UserRepository {
   }
 
   // methode um nutzer mithilfe id zu finden
-  Future<User?> findByID(int id) async {
+  Future<User?> findByID(String id) async {
     final result = await connection.execute(
       'SELECT FROM users WHERE user_id = @id',
       parameters: {'id': id},
@@ -42,19 +42,14 @@ class UserRepository {
   }
 
   // Neuen Nutzer erstellen durch sql befehl
-  Future<User> create(
-    int id,
-    String username,
-    String password,
-    String email,
-  ) async {
+  Future<User> create(User user) async {
     final result = await connection.execute(
       'INSERT INTO users (user_id, username, password, email) VALUES (@id, @username, @password, @email) RETURNING *',
       parameters: {
-        'id': id,
-        'username': username,
-        'password': password,
-        'email': email,
+        'id': user.id,
+        'username': user.name,
+        'password': user.password,
+        'email': user.email,
       },
     );
     //ergebnis wird als feld zurückgegeben
@@ -62,7 +57,7 @@ class UserRepository {
   }
 
   //dem nutzer status setzen
-  Future<User?> setStatusByID(int status, int id) async {
+  Future<User?> setStatusByID(int status, String id) async {
     final result = await connection.execute(
       'UPDATE users SET user_status = @status WHERE user_id = @id RETURNING *',
       parameters: {'status': status, 'id': id},
@@ -71,7 +66,7 @@ class UserRepository {
   }
 
   // den nutzer loeschen
-  Future<void> removeUserByID(int id) async {
+  Future<void> removeUserByID(String id) async {
     await connection.execute(
       'DELETE FROM users WHERE user_id = @id',
       parameters: {'id': id},

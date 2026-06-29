@@ -5,12 +5,12 @@ import 'package:shelf_router/shelf_router.dart';
 import 'package:shelf_static/shelf_static.dart';
 import '../bin/services/chat_service.dart';
 import 'package:postgres/postgres.dart';
-import 'db/repository/users_repository.dart';
-import 'db/repository/messages_repository.dart';
-import 'auth/auth_service.dart';
-import 'auth/jwt_service.dart';
-import 'auth/password_service.dart';
-import 'services/middleware/auth_middleware.dart';
+import '../bin/db/repository/users_repository.dart';
+import '../bin/db/repository/messages_repository.dart';
+import '../bin/auth/auth_service.dart';
+import '../bin/auth/jwt_service.dart';
+import '../bin/auth/password_service.dart';
+import '../bin/services/middleware/auth_middleware.dart';
 import 'dart:convert';
 
 //die meisten funktionen kommen aus oben importierten packages, was serverprogramm sehr vereinfacht
@@ -42,11 +42,10 @@ void main() async {
   final messageRepo = MessageRepository(connection);
 
   final chatService = ChatService(messageRepo);
-
   final authService = AuthService(userRepo, PasswordService(), JwtService());
   final jwtService = JwtService();
 
-  // Bearbeitet static, also HTMLs
+  // Bearbeitet static, also html
   final staticHandler = createStaticHandler(
     'public',
     defaultDocument: 'index.html',

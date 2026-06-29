@@ -7,10 +7,10 @@ part of 'message.dart';
 // **************************************************************************
 
 Message _messageFromJson(Map<String, dynamic> json) => Message(
-  chatID: json['chatID'] as int,
-  messageID: json['messageID'] as int,
-  sender: json['sender'] as int,
-  recipient: json['recipient'] as int,
+  chatID: json['chatID'] as String,
+  messageID: json['messageID'] as String,
+  sender: json['sender'] as String,
+  recipient: json['recipient'] as String,
   status: json['status'] as int,
   content: json['content'] as String,
   timestamp: DateTime.parse(json['timestamp'] as String),

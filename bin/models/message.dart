@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:uuid/uuid.dart';
 
 //import 'user.dart';
 //vielleicht brauchen wir das später
@@ -7,10 +8,10 @@ part 'message.g.dart';
 
 @JsonSerializable(createJsonSchema: true)
 class Message {
-  final int chatID;
-  final int messageID;
-  final int sender;
-  final int recipient;
+  final String chatID;
+  final String messageID;
+  final String sender;
+  final String recipient;
   final int? status;
   final String content;
   final DateTime timestamp;
@@ -33,13 +34,18 @@ class Message {
 
   factory Message.fromRow(Map<String, dynamic> row) {
     return Message(
-      chatID: row['chat_id'] as int,
-      messageID: row['message_id'] as int,
-      sender: row['sender_id'] as int,
-      recipient: row['recipient_id'] as int,
+      chatID: row['chat_id'] as String,
+      messageID: row['message_id'] as String,
+      sender: row['sender_id'] as String,
+      recipient: row['recipient_id'] as String,
       content: row['message_content'] as String,
       timestamp: (row['datetime'] as DateTime).toLocal(),
       status: row['status'] as int,
     );
+  }
+
+  Future<String> generateId() async {
+    final id = Uuid().v6();
+    return id;
   }
 }

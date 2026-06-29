@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <title>Teleyla Login</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" >
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; } /* (Alles Yan)Genau wie beim anderen html doc hilfe von claude*/
+/* benutzte videos: https://www.youtube.com/watch?v=2O8pkybH6po, https://www.youtube.com/watch?v=okbByPWS1Xc&list=PLImJ3umGjxdDqTlZhQxXBeGij9Oa9Xjnj */
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f2f2;
+      display: flex;
+      min-height: 100vh;
+          align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 2vh;
+    }
+    .card {
+         background: #ffffff;
+      border: 0.33vh solid #ddd;
+      padding: 3vh 3.5vh;
+      display: flex;
+      flex-direction: column;
+      gap: 1.8vh;
+      width: 32vh;
+    }
+    .card h1 {
+      font-size: 2.5vh;
+      color: #000;
+      text-align: center;
+    }
+    .card h2 {
+      font-size: 2.5vh;
+      color: #000;
+      text-align: center;
+    }
+    .field {
+      display: flex;
+      align-items: center;
+      gap: 1vh;
+      border: 0.33vh solid #ddd;
+      border-radius: 10vh;
+      padding: 1vh 1.2vh;
+    }
+    .field:focus-within { border-color: #534AB7; }
+    .field i {
+      color: #534AB7;
+      flex-shrink: 0;
+    }
+    .field input {
+          border: none;
+       color: #111;
+      background: transparent;
+    }
+    .field input::placeholder { color: #bbb; }
+    .btn {
+      padding: 1vh;
+      color: #fff;
+      border-radius: 10vh;
+      font-size: 1.4vh;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      transition:ease-in-out 0.2s;
+    }
+    .btn-primary { background: #534AB7; }
+    .btn-secondary { background: #534AB7; }
+    .divider {
+      border-top: 0.33vh solid #ddd;
+    }
+  </style>
+</head>
+<body>
+  <!-- hilfe von claude bei diesem Abschnitt, ist aber nur temporary wahrscheinlich  -->
+<div class="card">
+  <h1>Anmelden</h1> 
+  <div id="sign_in_field_email">
+    <i class="ti ti-mail"></i>
+    <input type="email" placeholder="E-Mail" />
+  </div>
+  <div id="sign_in_field_password">
+    <i class="ti ti-lock"></i>
+    <input type="password" placeholder="Passwort" />
+  </div>
+  <button id="button_sign_in">
+    Anmelden
+        <i class="ti ti-send"></i>
+  </button>
+</div>
+<!-- Registrieren -->
+<div class="card">
+  <h2>Registrieren</h2>
+  <div id="field_username">
+    <i class="ti ti-user"></i>
+    <input type="text" placeholder="Benutzername" />
+  </div>
+  <div class="sign_up_field_email">
+    <i class="ti ti-mail"></i>
+    <input type="email" placeholder="E-Mail" />
+  </div>
+  <div id="sign_up_field_password">
+    <i class="ti ti-lock"></i>
+    <input type="password" placeholder="Passwort" />
+  </div>
+  <button id="button_sign_up">
+    Konto erstellen
+    <i class="ti ti-user-plus"></i>
+  </button>
+</div>
+
+
+// <!-- hier javascript code importieren durch  <script defer src = 'script.js'></script> -->
+<script>
+ // HIER!!!!!!
+</script>
+</body>
+</html>

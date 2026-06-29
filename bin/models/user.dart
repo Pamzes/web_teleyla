@@ -1,9 +1,10 @@
 class User {
-  int id;
+  String id;
   String name;
   String password;
   String email;
-  int status;
+  int? status;
+  String? totp;
 
   List<User> friends = List.empty();
 
@@ -12,16 +13,14 @@ class User {
     required this.name,
     required this.password,
     required this.email,
-    required this.status,
   });
 
   factory User.fromRow(Map<String, dynamic> row) {
     return User(
-      id: row['userID'] as int,
+      id: row['userID'] as String,
       name: row['username'] as String,
       password: row['password'] as String,
       email: (row['email']) as String,
-      status: (row['currentUserStatus']) as int,
     );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:uuid/uuid.dart';
 
 import '../models/user.dart';
-import '../db/repositories/users_repository.dart';
+import '../db/repository/users_repository.dart';
 import 'jwt_service.dart';
 import 'password_service.dart';
 
@@ -15,7 +15,7 @@ class AuthService {
   Future<String> register({
     required String email,
     required String username,
-    required String password
+    required String password,
   }) async {
     //prüft, ob User mit der Email bereits existiert, wenn ja, wirft Exception
     final existing = await repo.findByEmail(email);
@@ -26,17 +26,21 @@ class AuthService {
 
     //erstellt neuen User mit generierter Id, Email, Username und gehashtem Passwort und speichert ihn im Repository
     final user = User(
-      id: const Uuid().v4(), email: email, name: username, password: passwordService.hash(password));
+      id: const Uuid().v4(),
+      email: email,
+      name: username,
+      password: passwordService.hash(password),
+    );
+
     await repo.create(user);
     //generiert JWT Token für den neuen User und gibt ihn zurück
-    return jwtService.generateToken(user.id);
+    return jwtService.generateToken(user.id.toString());
   }
 
   Future<String> login({
     required String email,
-    required String password
+    required String password,
   }) async {
-
     //sucht User mit der Email im Repository
     final user = await repo.findByEmail(email);
 
@@ -45,13 +49,13 @@ class AuthService {
     }
 
     //vergleicht Passwort mit dem gespeicherten Hash, wenn falsch, wirft Exception
-    final valid = passwordService.verify(password, user.passwordHash);
+    final valid = passwordService.verify(password, user.password);
 
     if (!valid) {
       throw Exception('Invalid credentials');
     }
 
     //generiert JWT Token für den User und gibt ihn zurück
-    return jwtService.generateToken(user.id);
+    return jwtService.generateToken(user.id.toString());
   }
 }

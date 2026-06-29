@@ -28,7 +28,7 @@ class MessageRepository {
   }
 
   //nachricht finden
-  Future<Message> findByID(int id) async {
+  Future<Message> findByID(String id) async {
     final result = await connection.execute(
       'SELECT * FROM messages WHERE message_id = @id',
       parameters: {id: id},
@@ -37,7 +37,7 @@ class MessageRepository {
   }
 
   //methode um Nachricht zu löschen
-  Future<void> deleteMessageByID(int id) async {
+  Future<void> deleteMessageByID(String id) async {
     await connection.execute(
       'DELETE FROM messages WHERE message_id = @id',
       parameters: {'id': id},
@@ -45,7 +45,7 @@ class MessageRepository {
   }
 
   //methode um geschichte des chats aufzurufen
-  Future<List<Message>> getHistory(int chatID) async {
+  Future<List<Message>> getHistory(String chatID) async {
     int limit = 50;
     <String, dynamic>{'limit': limit};
 
