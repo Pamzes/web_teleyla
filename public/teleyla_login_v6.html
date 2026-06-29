@@ -1,4 +1,5 @@
 <!doctype html>
+<pre id="wsStatus" style="background:#eee; padding:10px;"></pre>
 <html lang="de">
 <head>
   <title>Teleyla Login</title>
@@ -6,6 +7,11 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; } /* (Alles Yan)Genau wie beim anderen html doc hilfe von claude*/
 /* benutzte videos: https://www.youtube.com/watch?v=2O8pkybH6po, https://www.youtube.com/watch?v=okbByPWS1Xc&list=PLImJ3umGjxdDqTlZhQxXBeGij9Oa9Xjnj */
+
+
+/* Korregiert vom Peter. YAAAAAAAN!!!!!! WIE HAST DU DIE DATEI VERFASST!!!!????? */
+
+
     body {
       font-family: Arial, sans-serif;
       background: #f7f2f2;
@@ -75,15 +81,15 @@
   <!-- hilfe von claude bei diesem Abschnitt, ist aber nur temporary wahrscheinlich  -->
 <div class="card">
   <h1>Anmelden</h1> 
-  <div id="sign_in_field_email">
+  <div class="field" >
     <i class="ti ti-mail"></i>
-    <input type="email" placeholder="E-Mail" />
+    <input type="email" placeholder="E-Mail" id="sign_in_field_email"/>
   </div>
-  <div id="sign_in_field_password">
+  <div class="field" >
     <i class="ti ti-lock"></i>
-    <input type="password" placeholder="Passwort" />
+    <input type="password" placeholder="Passwort" id="sign_in_field_password"/>
   </div>
-  <button id="button_sign_in">
+  <button class="btn btn-secondary" id="button_sign_in">
     Anmelden
         <i class="ti ti-send"></i>
   </button>
@@ -91,28 +97,23 @@
 <!-- Registrieren -->
 <div class="card">
   <h2>Registrieren</h2>
-  <div id="field_username">
+  <div class="field" ">
     <i class="ti ti-user"></i>
-    <input type="text" placeholder="Benutzername" />
+    <input type="text" placeholder="Benutzername" id="field_username"/>
   </div>
-  <div class="sign_up_field_email">
+<div class="field" >
     <i class="ti ti-mail"></i>
-    <input type="email" placeholder="E-Mail" />
+    <input type="email" placeholder="E-Mail" id="sign_up_field_email"/>
   </div>
-  <div id="sign_up_field_password">
+  <div class="field" >
     <i class="ti ti-lock"></i>
-    <input type="password" placeholder="Passwort" />
+    <input type="password" placeholder="Passwort" id="sign_up_field_password"/>
   </div>
-  <button id="button_sign_up">
+  <button class="btn btn-secondary" id="button_sign_up">
     Konto erstellen
     <i class="ti ti-user-plus"></i>
   </button>
 </div>
-
-
-// <!-- hier javascript code importieren durch  <script defer src = 'script.js'></script> -->
-<script>
- // HIER!!!!!!
-</script>
+<script defer src = 'auth.js'></script>
 </body>
 </html>

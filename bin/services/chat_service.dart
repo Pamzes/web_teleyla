@@ -40,6 +40,7 @@ class ChatService {
     //print('DEBUG: handleMessage recieved: $data');
     try {
       final json = jsonDecode(data) as Map<String, dynamic>;
+      final action = json['action'] as String?;
 
       final message = Message.fromJson(json);
       print('Message from ${message.sender}: ${message.content}');
