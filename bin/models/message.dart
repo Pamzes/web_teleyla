@@ -1,8 +1,7 @@
+//Peter
+
 import 'package:json_annotation/json_annotation.dart';
 import 'package:uuid/uuid.dart';
-
-//import 'user.dart';
-//vielleicht brauchen wir das später
 
 part 'message.g.dart';
 

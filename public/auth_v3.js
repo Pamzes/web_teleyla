@@ -1,7 +1,5 @@
-//erste version von authentification scriot für den client, ermöglicht anmeldedaten an den server verschicken
-//geschrieben von Max, mithilfe von KI da JavaScript, verbessert vom Peter
-
-
+//verbesserung für auth.js, websocket durch http anfragen an die endpoints ersetzt, noch nicht reibungslos
+//Peter, mithilfe von KI da JavaScript
 
 const bsu = document.getElementById("button_sign_up");
 const bsi = document.getElementById("button_sign_in");
@@ -36,27 +34,44 @@ ws.onerror = (error) => logStatus('WebSocket error');
 
 
 
-function signUpUser() {
+async function signUpUser()  {
    
     const username = f_username.value.trim();
     const email = sufe.value.trim();
     const password = sufp.value.trim();
 
-    logStatus('Signing up: username=' + username + ', email=' + email);
 
+    logStatus('Registering...');
     if (!username || !email || !password) {
         logStatus('Error: Missing fields');
         return;
     }
 
-    const message = {
-        action: 'sign_up',
-        data: {
-            username: username,
-            email: email,
-            password: password
+    try {
+        const response = await fetch('/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, email, password })
+        });
+
+        const data = await response.json();
+        if (!response.ok) {
+            logStatus('Registration failed: ' + (data.message || data.error || response.status));
+            return;
         }
-    };
+
+
+        const token = data.access_token;
+        logStatus('Registration successful! Token: ' + token);
+
+     
+        localStorage.setItem('jwt', token);
+
+      
+        window.location.href = '/chat.html'; 
+    } catch (e) {
+        logStatus('Network error: ' + e);
+    }
 
     try {
         ws.send(JSON.stringify(message));
@@ -66,25 +81,38 @@ function signUpUser() {
     }
 }
 
-function signInUser() {
+async function signInUser() {
     
     const email = sife.value.trim();
     const password = sifp.value.trim();
-
-    logStatus('Signing up: email = ' + email);
 
     if (!email || !password) {
         logStatus('Error: Missing fields');
         return;
     }
 
-    const message = {
-        action: 'sign_in',
-        data: {
-            email: email,
-            password: password
+    try {
+        const response = await fetch('/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+        });
+
+        const data = await response.json();
+        if (!response.ok) {
+            logStatus('Registration failed: ' + (data.message || data.error || response.status));
+            return;
         }
-    };
+                const token = data.access_token;
+        logStatus('Registration successful! Token: ' + token);
+
+
+        localStorage.setItem('jwt', token);
+
+        window.location.href = '/chat.html'; 
+    } catch (e) {
+        logStatus('Network error: ' + e);
+    }
 
     try {
         ws.send(JSON.stringify(message));

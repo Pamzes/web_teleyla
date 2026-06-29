@@ -49,7 +49,7 @@ void main() async {
   // Bearbeitet static, also HTMLs
   final staticHandler = createStaticHandler(
     'public',
-    defaultDocument: 'teleyla_login_v6.html',
+    defaultDocument: 'auth_v6.html',
   );
 
   // Router, der Serverzustand auf die Nachfrage widergibt

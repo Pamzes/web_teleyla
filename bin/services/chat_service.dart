@@ -37,10 +37,14 @@ class ChatService {
 
   // Bearbeitung einer Nachricht vom CLient
   Future<void> handleMessage(WebSocket sender, String data) async {
-    //print('DEBUG: handleMessage recieved: $data');
     try {
       final json = jsonDecode(data) as Map<String, dynamic>;
-      final action = json['action'] as String?;
+
+      // Если есть поле action — обрабатываем команду
+      // if (json.containsKey('action')) {
+      //   await handleCommand(sender, json);
+      //   return;
+      // }
 
       final message = Message.fromJson(json);
       print('Message from ${message.sender}: ${message.content}');
@@ -50,4 +54,20 @@ class ChatService {
       print('Error: $e');
     }
   }
+
+  // Future<void> handleCommand(
+  //   WebSocket sender,
+  //   Map<String, dynamic> json,
+  // ) async {
+  //   final action = json['action'] as String;
+  //   final data = json['data'] as Map<String, dynamic>? ?? {};
+
+  //   switch (action) {
+  //     case 'sign_up':
+  //       await signUp(sender, data);
+  //   }
+  // }
+  // Future<void> signUp(WebSocket sender, Map<String, dynamic> data) async {
+
+  // }
 }

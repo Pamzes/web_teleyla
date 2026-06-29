@@ -1,5 +1,6 @@
 //die Datei für kommunikation mit dem datenbank
 //ermöglicht finden, speichern und löschen von nachrichten im datenbank
+//Peter, code selber geschrieben
 
 import 'package:postgres/postgres.dart';
 import '../../models/message.dart';

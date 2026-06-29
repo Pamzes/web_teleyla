@@ -1,3 +1,4 @@
+//Max
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 
 class JwtService {
@@ -5,10 +6,7 @@ class JwtService {
 
   //generiert JWT Token mit UserId als Payload
   String generateToken(String userId) {
-    final jwt = JWT({
-      'sub': userId,
-      'type': 'access_token'
-    });
+    final jwt = JWT({'sub': userId, 'type': 'access_token'});
     //signiert Token mit SecretKey und gibt es zurück, mit Ablaufzeit von 1 Stunde
     return jwt.sign(SecretKey(secret), expiresIn: const Duration(hours: 1));
   }

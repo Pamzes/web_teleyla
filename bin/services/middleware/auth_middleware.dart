@@ -1,5 +1,8 @@
+//Max
+
 import 'package:shelf/shelf.dart';
 import '../../auth/jwt_service.dart';
+
 Middleware authMiddleware(JwtService jwtService) {
   //Middleware, die JWT Token aus dem Authorization Header extrahiert, verifiziert und die UserId in den Request Context einfügt
   return (Handler innerHandler) {
@@ -13,9 +16,9 @@ Middleware authMiddleware(JwtService jwtService) {
       try {
         final token = authHeader.substring(7);
         final payload = jwtService.verify(token);
-        final updatedRequest = request.change(context: {
-          'userId': payload.payload['sub']
-        });
+        final updatedRequest = request.change(
+          context: {'userId': payload.payload['sub']},
+        );
         return innerHandler(updatedRequest);
       } catch (_) {
         return Response.forbidden('Invalid token');
@@ -23,4 +26,3 @@ Middleware authMiddleware(JwtService jwtService) {
     };
   };
 }
- 

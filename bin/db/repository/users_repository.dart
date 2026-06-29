@@ -1,5 +1,6 @@
 //die Datei für kommunikation mit dem datenbank
 //ermöglicht finden, erstellen und löschen von nutzer
+//Peter, code selber geschrieben
 
 import 'package:postgres/postgres.dart';
 import '../../models/user.dart';
@@ -44,7 +45,9 @@ class UserRepository {
   // Neuen Nutzer erstellen durch sql befehl
   Future<User> create(User user) async {
     final result = await connection.execute(
-      'INSERT INTO users (user_id, username, password, email) VALUES (@id, @username, @password, @email) RETURNING *',
+      Sql.named(
+        'INSERT INTO users (user_id, username, password, email) VALUES (@id, @username, @password, @email) RETURNING *',
+      ),
       parameters: {
         'id': user.id,
         'username': user.name,
