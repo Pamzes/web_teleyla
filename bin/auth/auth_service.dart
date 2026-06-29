@@ -1,7 +1,7 @@
 import 'package:uuid/uuid.dart';
 
 import '../models/user.dart';
-import '../repositories/user_repository.dart';
+import '../db/repositories/users_repository.dart';
 import 'jwt_service.dart';
 import 'password_service.dart';
 

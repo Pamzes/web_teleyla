@@ -15,6 +15,13 @@ dependencies:
   web_socket_channel: ^3.0.3
   web: ^1.1.1
   postgres: ^3.5.12
+  crypto: ^3.0.7
+  dart_jsonwebtoken: ^3.4.1
+  bcrypt: ^1.2.0
+  otp: ^3.2.0
+  uuid: ^4.5.3
+
+
 
 
 
