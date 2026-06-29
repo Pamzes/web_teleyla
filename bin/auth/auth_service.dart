@@ -26,7 +26,7 @@ class AuthService {
 
     //erstellt neuen User mit generierter Id, Email, Username und gehashtem Passwort und speichert ihn im Repository
     final user = User(
-      id: const Uuid().v4(), email: email, name: username, passwordHash: passwordService.hash(password));
+      id: const Uuid().v4(), email: email, name: username, password: passwordService.hash(password));
     await repo.create(user);
     //generiert JWT Token für den neuen User und gibt ihn zurück
     return jwtService.generateToken(user.id);

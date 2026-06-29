@@ -20,6 +20,16 @@ class UserRepository {
     return User.fromRow(result.first.toColumnMap());
   }
 
+  Future<User?> findByEmail(String email) async {
+    final result = await connection.execute(
+      'SELECT * FROM users WHERE email = @email',
+      parameters: {'email': email},
+    );
+    if (result.isEmpty) return null;
+    //ergebnis wird als feld zurückgegeben
+    return User.fromRow(result.first.toColumnMap());
+  }
+
   // methode um nutzer mithilfe id zu finden
   Future<User?> findByID(int id) async {
     final result = await connection.execute(
