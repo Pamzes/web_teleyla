@@ -12,20 +12,19 @@ import 'auth/jwt_service.dart';
 import 'auth/password_service.dart';
 import 'services/middleware/auth_middleware.dart';
 import 'dart:convert';
+import "../variables.env";
 
 //die meisten funktionen kommen aus oben importierten packages, was serverprogramm sehr vereinfacht
 //code wurde mithilfe von anleitungen aus packages und KI geschrieben
 //server starten
 void main() async {
-  final settings = ConnectionSettings(sslMode: SslMode.disable);
-
   final connection = await Connection.open(
     Endpoint(
-      host: 'localhost',
-      port: 5432,
-      database: 'db_teleyla',
-      username: 'postgres',
-      password: '12345678',
+      host: host,
+      port: int.parse(sqlPort),
+      database: db,
+      username: sqlUser,
+      password: sqlPassword,
     ),
     settings: settings,
   );

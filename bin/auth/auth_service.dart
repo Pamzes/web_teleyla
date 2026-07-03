@@ -30,7 +30,8 @@ class AuthService {
       id: const Uuid().v4(),
       email: email,
       name: username,
-      password: passwordService.hash(password),
+      password: "test",
+      //      password: passwordService.hash(password),
     );
 
     await repo.create(user);

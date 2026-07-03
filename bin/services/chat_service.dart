@@ -40,7 +40,6 @@ class ChatService {
     try {
       final json = jsonDecode(data) as Map<String, dynamic>;
 
-      // Если есть поле action — обрабатываем команду
       // if (json.containsKey('action')) {
       //   await handleCommand(sender, json);
       //   return;
