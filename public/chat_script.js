@@ -56,10 +56,10 @@ function sendMessage() {
         return;
     }
     const message = {
-    chatID: 12,     
-    messageID: 1,   
-    sender: 1,  
-    recipient : 2,  
+    chatID: 'jcecece',     
+    messageID: 'dededss',   
+    sender: '33fe64da-79cd-4710-8c5f-991cadcebc8f',  
+    recipient : 'e31068c6-b7c4-42dc-b66a-d33e3f44bbf3',  
     status: 1,
     content: text,
     timestamp: new Date().toISOString()

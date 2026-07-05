@@ -18,10 +18,11 @@ import "../variables.env";
 //code wurde mithilfe von anleitungen aus packages und KI geschrieben
 //server starten
 void main() async {
+  final settings = ConnectionSettings(sslMode: SslMode.disable);
   final connection = await Connection.open(
     Endpoint(
       host: host,
-      port: int.parse(sqlPort),
+      port: sqlPort,
       database: db,
       username: sqlUser,
       password: sqlPassword,
@@ -40,7 +41,7 @@ void main() async {
   final userRepo = UserRepository(connection);
   final messageRepo = MessageRepository(connection);
 
-  final chatService = ChatService(messageRepo);
+  final chatService = ChatService(userRepo, messageRepo);
 
   final authService = AuthService(userRepo, PasswordService(), JwtService());
   final jwtService = JwtService();

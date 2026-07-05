@@ -41,7 +41,7 @@ void main() async {
   final userRepo = UserRepository(connection);
   final messageRepo = MessageRepository(connection);
 
-  final chatService = ChatService(messageRepo);
+  final chatService = ChatService(userRepo, messageRepo);
   final authService = AuthService(userRepo, PasswordService(), JwtService());
   final jwtService = JwtService();
 

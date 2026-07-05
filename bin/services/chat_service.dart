@@ -2,15 +2,17 @@ import 'dart:io';
 import 'dart:convert';
 import '../models/message.dart';
 import '../db/repository/messages_repository.dart';
+import '../db/repository/users_repository.dart';
 
 class ChatService {
   // Alle Clients sind
   final List<WebSocket> _clients = [];
   final List<String> messages = [];
 
+  final UserRepository _userRepo;
   final MessageRepository _messageRepo;
 
-  ChatService(this._messageRepo);
+  ChatService(this._userRepo, this._messageRepo);
 
   // Client hinzufügen
   void addClient(WebSocket ws) {
@@ -46,7 +48,11 @@ class ChatService {
       // }
 
       final message = Message.fromJson(json);
-      print('Message from ${message.sender}: ${message.content}');
+      final user = await _userRepo.findByID(message.sender);
+      if (user == null) {
+        return;
+      }
+      print('Message from ${user.name}: ${message.content}');
       _messageRepo.save(message);
       broadcast(message);
     } catch (e) {

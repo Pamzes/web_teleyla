@@ -70,7 +70,8 @@ async function signUpUser()  {
       
         window.location.href = '/chat.html'; 
 
-         try {
+         
+        try {
         ws.send(JSON.stringify(response));
         logStatus('Sign up request sent');
     } catch (e) {
@@ -92,10 +93,10 @@ async function signInUser() {
     if (!email || !password) {
         logStatus('Error: Missing fields');
         return;
-    }
+    }   
 
     try {
-        const response = await fetch('/register', {
+        const response = await fetch('/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password })
@@ -107,7 +108,7 @@ async function signInUser() {
             return;
         }
                 const token = data.access_token;
-        logStatus('Registration successful! Token: ' + token);
+        logStatus('Signed in successful! Token: ' + token);
 
 
         localStorage.setItem('jwt', token);
@@ -116,7 +117,7 @@ async function signInUser() {
 
         try {
           ws.send(JSON.stringify(message));
-            logStatus('Sign up request sent');
+            logStatus('Sign in request sent');
           } catch (e) {
         logStatus('Send error: ' + e);
           }

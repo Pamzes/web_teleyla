@@ -1,7 +1,7 @@
 //Peter
 
 class User {
-  String id;
+  String? id;
   String name;
   String password;
   String email;
@@ -19,7 +19,7 @@ class User {
 
   factory User.fromRow(Map<String, dynamic> row) {
     return User(
-      id: row['userID'] as String,
+      id: row['user_id'] as String,
       name: row['username'] as String,
       password: row['password'] as String,
       email: (row['email']) as String,

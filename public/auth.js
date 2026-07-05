@@ -71,7 +71,7 @@ function signInUser() {
     const email = sife.value.trim();
     const password = sifp.value.trim();
 
-    logStatus('Signing up: email = ' + email);
+    logStatus('Signing in: email = ' + email);
 
     if (!email || !password) {
         logStatus('Error: Missing fields');
@@ -88,7 +88,7 @@ function signInUser() {
 
     try {
         ws.send(JSON.stringify(message));
-        logStatus('Sign up request sent');
+        logStatus('Sign in request sent');
     } catch (e) {
         logStatus('Send error: ' + e);
     }
