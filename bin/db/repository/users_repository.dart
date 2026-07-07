@@ -13,7 +13,7 @@ class UserRepository {
   // methode um nutzer mithilfe username zu finden
   Future<User?> findByUsername(String username) async {
     final result = await connection.execute(
-      'SELECT * FROM users WHERE username = @username',
+      Sql.named('SELECT * FROM users WHERE username = @username'),
       parameters: {'username': username},
     );
     if (result.isEmpty) return null;
