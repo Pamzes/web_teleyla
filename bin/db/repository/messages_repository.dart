@@ -12,20 +12,24 @@ class MessageRepository {
 
   // neue nachricht speichern
   Future<void> save(Message message) async {
-    await connection.execute(
-      Sql.named(
-        'INSERT INTO messages (chat_id, message_id, sender_id, recipient_id, message_content, datetime) VALUES (@chatID, @messageID, @senderID, @recipientID, @content, @datetime)',
-      ),
-
-      parameters: {
-        'chatID': message.chatID,
-        'messageID': message.messageID,
-        'senderID': message.sender,
-        'recipientID': message.recipient,
-        'content': message.content,
-        'datetime': message.timestamp,
-      },
-    );
+    try {
+      await connection.execute(
+        Sql.named(
+          'INSERT INTO messages (chat_id, message_id, sender_id, recipient_id, message_content, datetime) VALUES (@chatID, @messageID, @senderID, @recipientID, @content, @datetime)',
+        ),
+        parameters: {
+          'chatID': message.chatID,
+          'messageID': message.messageID,
+          'senderID': message.sender,
+          'recipientID': message.recipient,
+          'content': message.content,
+          'datetime': message.timestamp.toIso8601String(),
+        },
+      );
+      print('DEBUG: message saved successfully');
+    } catch (e) {
+      print('ERROR saving message: $e');
+    }
   }
 
   //nachricht finden
