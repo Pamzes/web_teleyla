@@ -15,4 +15,9 @@ class JwtService {
   JWT verify(String token) {
     return JWT.verify(token, SecretKey(secret));
   }
+
+  String extractUserId(String token) {
+    final jwt = JWT.verify(token, SecretKey(secret));
+    return jwt.payload['sub'] as String;
+  }
 }

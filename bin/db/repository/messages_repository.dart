@@ -3,7 +3,7 @@
 //Peter, code selber geschrieben
 
 import 'package:postgres/postgres.dart';
-import '../../models/message.dart';
+import '../../models/message_v2.dart';
 
 class MessageRepository {
   final Connection connection;
@@ -14,14 +14,13 @@ class MessageRepository {
   Future<void> save(Message message) async {
     await connection.execute(
       Sql.named(
-        'INSERT INTO messages (chat_id, message_id, sender_id, recipient_id, message_content, datetime) VALUES (@chatID, @messageID, @senderID, @recipientID, @content, @datetime)',
+        'INSERT INTO messages (chat_id, message_id, sender_id, message_content, datetime) VALUES (@chatID, @messageID, @sender, @content, @datetime)',
       ),
 
       parameters: {
         'chatID': message.chatID,
-        'messageID': message.messageID,
-        'senderID': message.sender,
-        'recipientID': message.recipient,
+        'messageID': message.generateId(),
+        'sender': message.senderID,
         'content': message.content,
         'datetime': message.timestamp,
       },

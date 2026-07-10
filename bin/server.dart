@@ -120,13 +120,32 @@ void main() async {
   await for (final httpRequest in server) {
     // Wenn eine Anfrage mit Namen /ws kommt, wird die Verbindung bis Websocket upgradet
     if (httpRequest.uri.path == '/ws') {
+      final token = httpRequest.uri.queryParameters['token'];
+      if (token == null) {
+        httpRequest.response.statusCode = 401;
+        httpRequest.response.writeln('Missing token');
+        await httpRequest.response.close();
+        return; // прерываем обработку
+      }
+
+      String userId;
+      try {
+        userId = jwtService.extractUserId(token);
+      } catch (e) {
+        httpRequest.response.statusCode = 401;
+        httpRequest.response.writeln('Invalid token');
+        await httpRequest.response.close();
+        return;
+      }
+
       // Vergleicht header bei dem Request mit dem "websocket"
       if (httpRequest.headers.value('upgrade') == 'websocket') {
         try {
           final webSocket = await WebSocketTransformer.upgrade(httpRequest);
+
           //print('DEBUG: WebSocket upgrade successful');
           //einfügen von neuem Client in die Liste mit aktiven Clients in chat_service
-          chatService.addClient(webSocket);
+          chatService.addClient(webSocket, userId);
           //nachrichten von neuem CLient werden erwartet
           webSocket.listen(
             (data) {

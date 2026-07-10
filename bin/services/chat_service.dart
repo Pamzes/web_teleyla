@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'dart:convert';
-import '../models/message.dart';
+import '../models/message_v2.dart';
 import '../db/repository/messages_repository.dart';
 import '../db/repository/users_repository.dart';
 
@@ -8,16 +8,23 @@ class ChatService {
   // Alle Clients sind
   final List<WebSocket> _clients = [];
   final List<String> messages = [];
+  final Map<WebSocket, String> userIds = {};
+  final Map<WebSocket, String> _currentRooms = {};
 
   final UserRepository _userRepo;
   final MessageRepository _messageRepo;
 
   ChatService(this._userRepo, this._messageRepo);
 
+  String? getUserId(WebSocket ws) {
+    return userIds[ws];
+  }
+
   // Client hinzufügen
-  void addClient(WebSocket ws) {
+  void addClient(WebSocket ws, String userId) {
     _clients.add(ws);
-    print('Client connected. ${_clients.length} clients connected');
+    userIds[ws] = userId;
+    print('User $userId connected. Total clients: ${_clients.length}');
   }
 
   // Client entfernen
@@ -48,7 +55,7 @@ class ChatService {
       // }
 
       final message = Message.fromJson(json);
-      final user = await _userRepo.findByID(message.sender);
+      final user = await _userRepo.findByID(getUserId(sender));
       if (user == null) {
         return;
       }

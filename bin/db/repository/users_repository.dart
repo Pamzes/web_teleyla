@@ -32,9 +32,9 @@ class UserRepository {
   }
 
   // methode um nutzer mithilfe id zu finden
-  Future<User?> findByID(String id) async {
+  Future<User?> findByID(String? id) async {
     final result = await connection.execute(
-      Sql.named('SELECT FROM users WHERE user_id = @id'),
+      Sql.named('SELECT * FROM users WHERE user_id = @id'),
       parameters: {'id': id},
     );
     if (result.isEmpty) return null;
