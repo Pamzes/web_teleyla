@@ -53,12 +53,21 @@ class ChatService {
       //   await handleCommand(sender, json);
       //   return;
       // }
-
+      final userId = (sender);
+      print('DEBUG: userId from socket: $userId');
       final message = Message.fromJson(json);
+<<<<<<< HEAD
       final user = await _userRepo.findByID(getUserId(sender));
+=======
+      print('DEBUG: message instance from ${message.sender} created');
+      final user = await _userRepo.findByID(message.sender);
+>>>>>>> 7fa468c3258962b3507045ab7fcaf2768528e47f
       if (user == null) {
+        print("user not found");
         return;
       }
+      print('DEBUG: user found: ${user.name}');
+
       print('Message from ${user.name}: ${message.content}');
       _messageRepo.save(message);
       broadcast(message);

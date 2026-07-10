@@ -1,7 +1,7 @@
 //Peter
 
 class User {
-  String? id;
+  String id;
   String name;
   String password;
   String email;

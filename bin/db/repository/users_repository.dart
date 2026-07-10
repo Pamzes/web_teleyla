@@ -37,10 +37,14 @@ class UserRepository {
       Sql.named('SELECT * FROM users WHERE user_id = @id'),
       parameters: {'id': id},
     );
-    if (result.isEmpty) return null;
-    //ergebnis wird als feld zurückgegeben
-    final user = User.fromRow(result.first.toColumnMap());
-    return user;
+    if (result.isEmpty) {
+      print("User not found");
+      return null;
+    } else {
+      //ergebnis wird als feld zurückgegeben
+      final user = User.fromRow(result.first.toColumnMap());
+      return user;
+    }
   }
 
   // Neuen Nutzer erstellen durch sql befehl
