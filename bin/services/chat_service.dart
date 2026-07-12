@@ -1,5 +1,7 @@
 import 'dart:io';
 import 'dart:convert';
+import 'package:uuid/uuid.dart';
+
 import '../models/message_v2.dart';
 import '../db/repository/messages_repository.dart';
 import '../db/repository/users_repository.dart';
@@ -48,25 +50,24 @@ class ChatService {
   Future<void> handleMessage(WebSocket sender, String data) async {
     try {
       final json = jsonDecode(data) as Map<String, dynamic>;
-
-      // if (json.containsKey('action')) {
-      //   await handleCommand(sender, json);
-      //   return;
-      // }
-      final userId = (sender);
-      print('DEBUG: userId from socket: $userId');
-      final message = Message.fromJson(json);
-<<<<<<< HEAD
+      //  print('DEBUG: message Mapfrom created');
+      if (json.containsKey('action')) {
+        await handleCommand(sender, json);
+        return;
+      }
+      //      final userId = (sender);
+      //      print('DEBUG: userId from socket: $userId');
       final user = await _userRepo.findByID(getUserId(sender));
-=======
-      print('DEBUG: message instance from ${message.sender} created');
-      final user = await _userRepo.findByID(message.sender);
->>>>>>> 7fa468c3258962b3507045ab7fcaf2768528e47f
       if (user == null) {
         print("user not found");
         return;
       }
-      print('DEBUG: user found: ${user.name}');
+      final messageId = Uuid().v4();
+      final senderName = user.name;
+      final message = Message.fromJson(json, user.id, messageId, senderName);
+
+      //    print('DEBUG: user found: ${user.name}');
+      //  print('DEBUG: message instance from ${user.name} created');
 
       print('Message from ${user.name}: ${message.content}');
       _messageRepo.save(message);
@@ -76,19 +77,18 @@ class ChatService {
     }
   }
 
-  // Future<void> handleCommand(
-  //   WebSocket sender,
-  //   Map<String, dynamic> json,
-  // ) async {
-  //   final action = json['action'] as String;
-  //   final data = json['data'] as Map<String, dynamic>? ?? {};
+  Future<void> handleCommand(
+    WebSocket sender,
+    Map<String, dynamic> json,
+  ) async {
+    final action = json['action'] as String;
+    final data = json['data'] as Map<String, dynamic>? ?? {};
 
-  //   switch (action) {
-  //     case 'sign_up':
-  //       await signUp(sender, data);
-  //   }
-  // }
-  // Future<void> signUp(WebSocket sender, Map<String, dynamic> data) async {
-
-  // }
+    switch (action) {
+      case 'join':
+        _currentRooms[sender] = data['chatId'] as String;
+      case 'leave':
+        _currentRooms.remove(sender);
+    }
+  }
 }

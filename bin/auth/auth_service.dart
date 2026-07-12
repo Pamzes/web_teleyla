@@ -36,7 +36,7 @@ class AuthService {
 
     await repo.create(user);
     //generiert JWT Token für den neuen User und gibt ihn zurück
-    return jwtService.generateToken(user.id.toString());
+    return jwtService.generateToken(user.id);
   }
 
   Future<String> login({
@@ -58,6 +58,6 @@ class AuthService {
     }
 
     //generiert JWT Token für den User und gibt ihn zurück
-    return jwtService.generateToken(user.id.toString());
+    return jwtService.generateToken(user.id);
   }
 }

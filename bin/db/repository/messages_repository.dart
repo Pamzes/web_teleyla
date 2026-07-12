@@ -14,14 +14,15 @@ class MessageRepository {
   Future<void> save(Message message) async {
     await connection.execute(
       Sql.named(
-        'INSERT INTO messages (chat_id, message_id, sender_id, message_content, datetime) VALUES (@chatID, @messageID, @sender, @content, @datetime)',
+        'INSERT INTO messages (chat_id, message_id, sender_id, message_content, status, datetime) VALUES (@chatID, @messageID, @sender, @content, @status, @datetime)',
       ),
 
       parameters: {
         'chatID': message.chatID,
-        'messageID': message.generateId(),
+        'messageID': message.messageID,
         'sender': message.senderID,
         'content': message.content,
+        'status': message.status,
         'datetime': message.timestamp,
       },
     );

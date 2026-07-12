@@ -1,9 +1,15 @@
 part of 'message_v2.dart';
 
-Message _messageFromJson(Map<String, dynamic> json) => Message(
+Message _messageFromJson(
+  Map<String, dynamic> json,
+  String sender,
+  String id,
+  String name,
+) => Message(
   chatID: json['chatID'] as String,
-  messageID: json['messageID'] as String,
-  senderID: json['sender'],
+  messageID: id,
+  senderID: sender,
+  senderName: name,
   status: json['status'] as int,
   content: json['content'] as String,
   timestamp: DateTime.parse(json['timestamp'] as String),
@@ -13,6 +19,7 @@ Map<String, dynamic> _$MessageToJson(Message instance) => <String, dynamic>{
   'chatID': instance.chatID,
   'messageID': instance.messageID,
   'sender': instance.senderID,
+  'name': instance.senderName,
   'status': instance.status,
   'content': instance.content,
   'timestamp': instance.timestamp.toIso8601String(),

@@ -15,13 +15,19 @@ function logStatus(msg) {
     console.log(msg);
 }
 
+//:${window.location.port || '3000'}
 
-const wsUrl = `ws://${window.location.hostname}:${window.location.port || '3000'}/ws?token=${encodeURIComponent(token)}`;
+const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+const wsUrl = `${wsProtocol}//${window.location.host}/ws?token=${encodeURIComponent(token)}`;
+
+
 //verbindung von client zu server durch websockets
     // const serverHost = window.location.hostname;
     // const serverPort = window.location.port || '3000';
     // const wsUrl = `ws://${serverHost}:${serverPort}/ws`;
     logStatus('Connecting to ' + wsUrl);
+
+    
 
     const ws = new WebSocket(wsUrl);
 
@@ -41,7 +47,8 @@ logStatus('recieved: ' + event.data);
                 const msg = JSON.parse(event.data);
                 const li = document.createElement('li');
                 // verschiedene sender
-                const sender = msg.senderId || msg.sender || 'Unknown';
+                const senderID = msg.senderId || msg.sender || 'Unknown';
+                const sender = msg.name
                 const text = msg.content || '';
                 li.textContent = sender + ': ' + text;
                 messagesList.appendChild(li);
@@ -62,11 +69,9 @@ function sendMessage() {
         return;
     }
     const message = {
-    chatID: 'jcecece',     
-    messageID: 'dededss',   
-    sender: token,  
-    recipient : 'e31068c6-b7c4-42dc-b66a-d33e3f44bbf3',  
-    status: 1,
+    chatID: 'jcecece',
+    sender: token, 
+    status: 0,
     content: text,
     timestamp: new Date().toISOString()
     };
@@ -82,3 +87,6 @@ function sendMessage() {
 
 //erwartet interaktion mit dem knopf
 sendBtn.addEventListener('click', sendMessage);
+input.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') sendMessage();
+});

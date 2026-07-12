@@ -7,6 +7,7 @@ import '../bin/services/chat_service.dart';
 import 'package:postgres/postgres.dart';
 import 'db/repository/users_repository.dart';
 import 'db/repository/messages_repository.dart';
+import 'db/repository/chats_repository.dart';
 import 'auth/auth_service.dart';
 import 'auth/jwt_service.dart';
 import 'auth/password_service.dart';
@@ -16,6 +17,7 @@ import "../variables.env";
 
 //die meisten funktionen kommen aus oben importierten packages, was serverprogramm sehr vereinfacht
 //code wurde mithilfe von anleitungen aus packages und KI geschrieben
+//Max hat authentification, Peter den rest
 //server starten
 void main() async {
   final settings = ConnectionSettings(sslMode: SslMode.disable);
@@ -40,6 +42,7 @@ void main() async {
 
   final userRepo = UserRepository(connection);
   final messageRepo = MessageRepository(connection);
+  // final chatsRepo = ChatsRepository(connection);
 
   final chatService = ChatService(userRepo, messageRepo);
 
@@ -125,7 +128,7 @@ void main() async {
         httpRequest.response.statusCode = 401;
         httpRequest.response.writeln('Missing token');
         await httpRequest.response.close();
-        return; // прерываем обработку
+        return;
       }
 
       String userId;
