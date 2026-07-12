@@ -1,10 +1,11 @@
-
+//Peter 
 //initialisierung von felder und knöpfe
 const messagesList = document.getElementById('messages');
 const sendBtn = document.getElementById('sendBtn');
+const showChats = document.getElementById('chatsBtn');
 const input = document.getElementById('input');
 const token = localStorage.getItem('jwt');
-if (!token) window.location.href = '/login.html';
+if (!token) window.location.href = 'auth_v5.html';
 
 
 
@@ -85,8 +86,20 @@ function sendMessage() {
     input.value = '';
 }
 
+function getChatsList(){
+    const message = {
+        action: 'list',
+        data: ''
+    }
+    ws.send(message);
+}
+
+
+
 //erwartet interaktion mit dem knopf
 sendBtn.addEventListener('click', sendMessage);
+showChats.addEventListener('click', getChatsList);
+
 input.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') sendMessage();
 });

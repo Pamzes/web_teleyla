@@ -1,41 +1,36 @@
-// import 'package:uuid/uuid.dart';
-// class Chat {
-//   final String id;
-//   final String title;
-//   final String creater;
-//   final int? status;
-  
+import 'package:uuid/uuid.dart';
 
-//   Chat({
-//     required this.id,
-//     required this.title,
-//     required this.creater,
-    
-//     required this.status,
-//   });
+part 'chat.g.dart';
 
-//   factory Chat.fromJson(
-//     Map<String, dynamic> json,
-//     String sender,
-//     String id,
-//     String name,
-//   ) => _chatFromJson(json, sender, id, name);
+class Chat {
+  final String id;
+  final String title;
+  final String creater;
+  // final int? status;
 
-//   Map<String, dynamic> toJson() => _$ChatToJson(this);
+  Chat({
+    required this.id,
+    required this.title,
+    required this.creater,
+    //   required this.status,
+  });
 
-//   static const jsonSchema = _$ChatJsonSchema;
+  factory Chat.fromJson(Map<String, dynamic> json) => _$ChatFromJson(json);
 
-//   factory Chat.fromRow(Map<String, dynamic> row) {
-//     return Chat(
-//       id: row['chat_id'] as String,
-//       title: row['chat_name'] as String,
-//       creater: row['created_by'] as String,
-//       status: row['status'] as int,
-//     );
-//   }
+  /// Метод для преобразования объекта в JSON
+  Map<String, dynamic> toJson() => _$ChatToJson(this);
 
-//   Future<String> generateId() async {
-//     final id = Uuid().v6();
-//     return id;
-//   }
-// }
+  factory Chat.fromRow(Map<String, dynamic> row) {
+    return Chat(
+      id: row['chat_id'] as String,
+      title: row['chat_name'] as String,
+      creater: row['created_by'] as String,
+      //   status: row['status'] as int,
+    );
+  }
+
+  Future<String> generateId() async {
+    final id = Uuid().v6();
+    return id;
+  }
+}

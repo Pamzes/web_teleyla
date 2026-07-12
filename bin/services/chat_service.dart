@@ -1,3 +1,4 @@
+//Peter
 import 'dart:io';
 import 'dart:convert';
 import 'package:uuid/uuid.dart';
@@ -5,6 +6,7 @@ import 'package:uuid/uuid.dart';
 import '../models/message_v2.dart';
 import '../db/repository/messages_repository.dart';
 import '../db/repository/users_repository.dart';
+import '../db/repository/chats_repository.dart';
 
 class ChatService {
   // Alle Clients sind
@@ -15,8 +17,9 @@ class ChatService {
 
   final UserRepository _userRepo;
   final MessageRepository _messageRepo;
+  final ChatsRepository _chatsRepo;
 
-  ChatService(this._userRepo, this._messageRepo);
+  ChatService(this._userRepo, this._messageRepo, this._chatsRepo);
 
   String? getUserId(WebSocket ws) {
     return userIds[ws];
@@ -85,10 +88,28 @@ class ChatService {
     final data = json['data'] as Map<String, dynamic>? ?? {};
 
     switch (action) {
+      case 'list':
+        final list = await _chatsRepo.showChats();
+        for (int i = 0; i < list.length; i++) {
+          final jsonOut = list[i].toJson();
+          sender.add(jsonOut);
+        }
+
       case 'join':
+        final userId = getUserId(sender);
+        if (userId == null) {
+          return;
+        }
         _currentRooms[sender] = data['chatId'] as String;
+        _chatsRepo.joinChat(userId, data['chatId']);
+
       case 'leave':
+        final userId = getUserId(sender);
+        if (userId == null) {
+          return;
+        }
         _currentRooms.remove(sender);
+        _chatsRepo.removeMember(userId, data['chatId']);
     }
   }
 }

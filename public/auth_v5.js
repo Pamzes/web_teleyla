@@ -44,7 +44,7 @@ async function signUpUser() {
         localStorage.setItem('jwt', token);
 
         // Переходим на страницу чата
-        window.location.href = '/chat_v2.html';
+        window.location.href = '/chat_v3.html';
 
     } catch (e) {
         logStatus('Network error: ' + e);
@@ -79,7 +79,7 @@ async function signInUser() {
         logStatus('Signed in! Token: ' + token);
 
         localStorage.setItem('jwt', token);
-        window.location.href = '/chat_v2.html';
+        window.location.href = '/chat_v3.html';
 
     } catch (e) {
         logStatus('Network error: ' + e);
