@@ -1,0 +1,196 @@
+<!doctype html>
+<HTML lang="de">
+<head>
+  <title>Teleyla</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css" >
+  <style>
+      /* Alles von Yan gemacht, mit hilfe v.a für Logos und das stylesheet von claude*/
+        *, *::before, *::after { box-sizing: border-box; margin: 1px; padding: 1px; }  /*auch claude */
+    body {
+            display: flex;
+      font-family: Arial;
+         background: #ffffff;
+      align-items: center;
+      justify-content: center;
+        height: 100%;
+    }
+    .app {
+      display: flex;
+      width: 150vh;
+      background: #ffffff;
+            height: 100vh;
+    }
+    .sidebar {
+           display: flex;
+      flex-direction: column;
+            flex: 0.275;
+    }
+
+    .sidebar-header {
+      padding: 2vh 2vh 2vh;
+      align-items:first baseline;
+ border: 0.33vh solid #ddd;
+ display: flex;
+  flex-wrap: wrap;       
+  gap: 10px;  
+    }
+
+    .sidebar-header h1 {
+      display: flex;
+      flex-direction: row;
+    font-size: 3vh;
+      color: #000000;
+    }
+    .search-bar {
+      display: flex;
+      flex:1;
+      align-items: center;
+      gap: 1vh;
+            border: 0.33vh  solid #534AB7;
+      border-radius: 10vh;
+      background: #d3d3d3;
+    }
+      .search-bar input{
+      background: transparent;
+      border: none;
+      flex: 1;
+      font-size: 1.5vh;
+      color: #111;
+  }
+    .contact {
+      padding: 1vh 1.4vh;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 1vh;
+      border-left: 0.66vh  solid;
+      border-left-color: red;
+      border-bottom: 0.33vh  solid#ddd;
+      border-right: 0.33vh  solid #ddd;
+    }
+    .contact.active {
+      background: #f4f4f4;
+      border-left: 0.66vh  solid;
+      border-left-color: #534AB7;
+    }
+    .avatar {
+      width: 3.5vh;
+      height: 3.5vh;
+      border: 0.33vh  solid #534AB7;
+      border-radius: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.33vh;
+    }
+    .avatar-1 { background: #EEEDFE; color: #000000; }
+    .avatar-2 { background: #E1F5EE; color: #000000; }
+    .avatar-3 { background: #FAECE7; color: #000000; }
+    .avatar-4 { background: #E6F1FB; color: #000000; }
+
+    .contact-name { font-size: 1.33vh; color: #111; }
+    .contact-time { font-size: 1vh; color: #aaa; margin-left: 7vh; flex-shrink: 1; }
+    /* Chat */
+    .chat {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+
+    }
+    .chat-header {
+      padding: 1.2vh 1.5vh;
+      border-bottom: 0.33vh  solid #ddd;
+      border: 0.33vh  solid #ddd;
+      display: flex;
+      flex:0.066;
+    }
+    .chat-header-info .name { font-size: 1.5vh; color: #000000; }
+    .chat-header-info .status { font-size: 1.2vh; color: rgb(84, 160, 84); }
+    .chat-header-actions {
+      margin-left: auto;
+      display: flex;
+      gap: 1.4vh;
+    }
+    .chat-body {
+      flex: 1;
+      background: #f1ecec;
+      border: 0.66vh #534AB7;
+      border-bottom: 0.33vh  solid #ddd;
+      border-left: 0.33vh  solid #ddd;
+    }
+    .chat-input-bar {
+      flex: 0.066;
+      padding: 1vh 1.4vh;
+      border-left: 0.33vh solid;
+      border-left-color: #ddd;
+      display: flex;
+      align-items: center;
+    }
+    .chat-input-bar input {
+      flex: auto;
+      font-size: 1.4vh;
+            border: 0.33vh solid #534AB7;
+      border-radius: 10vh;
+      padding: 1vh 1vh;
+      background: #ffffff;
+      color: #111;
+    }
+    .send-btn {
+      width: 8vh;
+      height: 4.4vh;
+    border-radius: 45%;
+      background: #534AB7;
+      border: 0.33vh solid #534AB7;
+      border: 0.25vh solid #000000;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .send-btn i { font-size: 1.6vh; color: #fff; }
+  </style>
+</head>
+<body>
+<div class="app">
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <h1>Nachrichten</h1>
+            <i class="ti ti-message" style="font-size: 200%;"></i>
+      <div class="search-bar" id="search-bar">
+        <i class="ti ti-search" id="search-icon"></i>
+         <input type="text" placeholder="Suchen">
+      </div>
+    </div>
+    <div class="contact-list">
+      <div class="contact active">
+        <div class="avatar avatar-1" id="avatar-1">PB</div>
+        <span class="contact-name" id="contact-name-1">Name-1</span>
+        <span class="contact-time" id="contact-time-1">Zeit-1</span>
+        <i class="ti ti-clock-hour-1"></i>
+      </div>
+    </div>
+  </div>
+  <div class="chat">
+    <div class="chat-header">
+      <div class="avatar avatar-1" id="avatar-header-1">PB</div>
+      <div class="chat-header-info">
+        <p class="name" id="chat-name-1">Name-1</p>
+        <p class="status" id="chat-status-1">Online</p>
+      </div>
+      <div class="chat-header-actions">
+        <i class="ti ti-user-cog" onclick="window.location.href='auth_v6.html'" style="cursor: pointer; font-size: 150%;"></i>
+      </div>
+    </div>
+    <ul class="chat-body" id="messages" style="list-style:none; overflow-y:auto;"></ul>
+    <div id="wsStatus" style="font-size: 1vh; color: #888; padding: 0 1.4vh; white-space: pre-wrap;"></div>
+    <div class="chat-input-bar">
+      <input type="text" id="input" placeholder="Nachricht schreiben" />
+      <button class="send-btn" id="sendBtn">
+        <i class="ti ti-send"></i>
+      </button>
+    </div>
+  </div>
+</div>
+<script src="chat_script_v2.js"></script>
+</body>
+</html>

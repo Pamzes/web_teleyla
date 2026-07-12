@@ -42,7 +42,7 @@ ws.onerror = (error) => logStatus('WebSocket error: ' + error.message);
 
 //nachrichteingang und speicherung in das feld
 ws.onmessage = (event) => {
-logStatus('recieved: ' + event.data);
+//logStatus('recieved: ' + event.data);
             try {
                 const msg = JSON.parse(event.data);
                 const li = document.createElement('li');
@@ -63,7 +63,7 @@ logStatus('recieved: ' + event.data);
 //nachricht aus dem textfeld "input" verschicken
 function sendMessage() {
     const text = input.value.trim();
-    logStatus('sendMessage called, text=' + text);
+ //   logStatus('sendMessage called, text=' + text);
     if (!text) {
         logStatus('Empty message');
         return;
@@ -75,10 +75,10 @@ function sendMessage() {
     content: text,
     timestamp: new Date().toISOString()
     };
-    logStatus('sending JSON: ' + JSON.stringify(message));
+//    logStatus('sending JSON: ' + JSON.stringify(message));
     try {
         ws.send(JSON.stringify(message));
-        logStatus('ws.send successfully completed');
+//        logStatus('ws.send successfully completed');
     } catch(e) {
         logStatus('Error ws.send: ' + e);
     }
